@@ -1,6 +1,7 @@
 //npm install discord.js@11.5.1
 //npm isntall node-fetch@2.6.0
 
+const { token } = require('./token');
 
 
 const Discord = require('discord.js'); //Version 11.5.1
@@ -41,4 +42,4 @@ client.on('ready', () => {
     client.user.setActivity('Nightcore', { type: 'LISTENING' });
   })
 
-client.login("");
+client.login(token);
