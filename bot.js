@@ -6,6 +6,10 @@ const fetch = require('node-fetch'); //Version node-fetch@2.6.0
 const { token } = require('./token');
 
 
+function truncate(str, n){
+    return (str.length > n) ? str.substr(0, n-1) + " ..."  : str;
+  };
+
 function nasapotd(message){
 
     let url = "https://api.nasa.gov/planetary/apod?api_key=79T5Ck3husu3YxYYVeMEqqCMFGp0b77f9Zru8NMw"
@@ -22,12 +26,18 @@ function nasapotd(message){
 
     }
 
-    console.log(url)
-
     fetch(url)
     .then(response => {
         return response.json()
     }).then(result => {
+
+        if(result.code === 400){
+            message.reply("Error\nDatum überprüfen.\nBeispiel: 15.02.2021")
+            return
+        }
+
+        description = truncate(result.explanation, 1010)
+
         embed = {
             title: result.title,
             color: 14191372,
@@ -39,7 +49,7 @@ function nasapotd(message){
                 url: result.url
                 },
             fields:[
-                { name: 'Explanation', value: result.explanation},
+                { name: 'Explanation', value: description},
                 { name: 'Link', value: result.url}
             ]  
         };
@@ -54,6 +64,7 @@ client.on('message', async message => {
     //return if bot
     if (message.author.bot)return;
 
+    //Aufruf Nasa Funktion
     if (message.content.startsWith('/nasa')) {
         nasapotd(message)
     }
@@ -63,7 +74,7 @@ client.on('message', async message => {
 
 
 client.on('ready', () => {
-    client.user.setActivity('/help', { type: 'LISTENING' });
+    client.user.setActivity('/nasa <datum>', { type: 'LISTENING' });
   })
 
 client.login(token);
