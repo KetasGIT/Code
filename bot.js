@@ -11,13 +11,13 @@ function nasapotd(message){
 
     if(message.content.length >= 6){
 
-    date = message.content.split(" ")[1]
+        date = message.content.split(" ")[1]
 
-    year = date.split(".")[2]
-    month = date.split(".")[1]
-    day = date.split(".")[0]
+        year = date.split(".")[2]
+        month = date.split(".")[1]
+        day = date.split(".")[0]
 
-    url = url + "&date="+year+"-"+month+"-"+day
+        url = url + "&date="+year+"-"+month+"-"+day
 
     }
 
@@ -58,6 +58,9 @@ function truncate(str, n){
     return (str.length > n) ? str.substr(0, n-1) + " ..."  : str;
   };
 
+
+
+
 client.on('message', async message => {
 
     //return if bot
@@ -69,7 +72,6 @@ client.on('message', async message => {
     }
 
 });
-
 
 
 client.on('ready', () => {
