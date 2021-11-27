@@ -57,6 +57,8 @@ function nasapotd(message){
                         { name: 'Link', value: result.url}
                     ]  
                 };
+
+                //sends embed message with NASA Api content
                 message.channel.send({embed})
             })
 
@@ -69,7 +71,7 @@ function truncate(str, n){
 
 
 
-
+//listens for new message
 client.on('message', async message => {
 
     //return if message is from bot
@@ -83,6 +85,7 @@ client.on('message', async message => {
 });
 
 
+//when started, shows "/nasa <datum>" in bots "rich presence"
 client.on('ready', () => {
     client.user.setActivity('/nasa <datum>', { type: 'LISTENING' });
   })
